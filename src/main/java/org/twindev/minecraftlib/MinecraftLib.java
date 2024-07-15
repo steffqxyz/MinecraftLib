@@ -12,7 +12,7 @@ public final class MinecraftLib {
     private static MinecraftUtility utility;
     private static Economy econ = null;
 
-    static void onLoad(@NotNull final MinecraftUtility plugin) {
+    public static void onLoad(@NotNull final MinecraftUtility plugin) {
         MinecraftLib.utility = plugin;
 
         if (!setupEconomy()) {
