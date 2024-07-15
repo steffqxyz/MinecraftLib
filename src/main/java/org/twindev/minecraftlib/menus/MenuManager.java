@@ -27,8 +27,8 @@ public final class MenuManager {
         for (String s : fileNames) {
             if (!s.endsWith(".yml")) return;
             String name = s.substring(0, s.length() - 4);
-            new YamlConfig("menus" + File.separator + name);
-            configs.add(new YamlConfig("menus" + File.separator + name));
+            new YamlConfig(folder + File.separator + name);
+            configs.add(new YamlConfig(folder + File.separator + name));
         }
     }
 
