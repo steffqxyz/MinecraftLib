@@ -16,6 +16,7 @@ public final class MenuManager {
 
     private final JavaPlugin plugin;
     private List<YamlConfig> configs;
+    private Menu menu;
 
     public MenuManager(JavaPlugin plugin) {
         this.plugin = plugin;
@@ -39,7 +40,7 @@ public final class MenuManager {
             items.add(new MenuItem(config));
             ConfigurationSection section = config.options().getConfigurationSection("items");
 
-            Menu menu = new Menu(config.options().getString("title"),
+            menu = new Menu(config.options().getString("title"),
                     config.options().getStringList("pattern"),
                     items);
 
@@ -58,5 +59,9 @@ public final class MenuManager {
 
     public List<YamlConfig> getMenuConfigs() {
         return configs;
+    }
+
+    public Menu getMenu() {
+        return menu;
     }
 }
