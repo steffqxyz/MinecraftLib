@@ -1,8 +1,10 @@
-package org.twindev.minecraftlib.utils;
+package org.twindev.minecraftlib.utils.configuration;
 
+import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
+import org.twindev.minecraftlib.MinecraftLib;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,16 +14,18 @@ public class YamlConfig {
     private @NotNull final String filePath;
     private File file;
     private FileConfiguration fileConfiguration;
+    private final String name;
 
     public YamlConfig(@NotNull final String filePath) {
         this.filePath = filePath.endsWith(".yml") ? filePath : filePath + ".yml";
+        name = filePath;
         reload();
         save();
         reload();
     }
 
     private File file() {
-        return new File(Astra.getPlugin().getDataFolder(), filePath);
+        return new File(MinecraftLib.getPlugin().getDataFolder(), filePath);
     }
 
     public FileConfiguration options() {
@@ -48,11 +52,14 @@ public class YamlConfig {
             return;
         }
 
-        Astra.getPlugin().saveResource(filePath, false);
+        MinecraftLib.getPlugin().saveResource(filePath, false);
     }
 
     public void reload() {
         fileConfiguration = YamlConfiguration.loadConfiguration(file());
     }
 
+    public String getName() {
+        return name;
+    }
 }

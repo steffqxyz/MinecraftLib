@@ -1,9 +1,10 @@
-package org.twindev.minecraftlib.commands.annotations;
+package org.twindev.minecraftlib.commands;
 
 import org.mineacademy.fo.ReflectionUtil;
 import org.mineacademy.fo.Valid;
 import org.mineacademy.fo.command.SimpleCommand;
 import org.mineacademy.fo.model.Tuple;
+import org.twindev.minecraftlib.commands.annotations.Command;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

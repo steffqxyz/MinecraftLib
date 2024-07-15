@@ -23,23 +23,46 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+          <source>9</source>
+          <target>9</target>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+
+            <!-- Change version to the latest one from
+                 https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin
+
+                 NOTICE: If using Jitpack and experiencing build failure, try downgrading to 3.5.1.
+                 -->
+            <version>3.5.3</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <createDependencyReducedPom>false</createDependencyReducedPom>
+                <artifactSet>
+                    <includes>
+                        <!-- Important: This will ensure only Foundation is shaded to your jar. If you have
+                             other dependencies that should be compiled, duplicate this line for each. -->
+                        <include>com.github.kangarko:Foundation*</include>
+                    </includes>
+                </artifactSet>
+                <relocations>
+                    <!-- This moves Foundation into your own package in "lib" subpackage to prevent interference. -->
+                    <relocation>
+                        <pattern>org.twindev.minecraftlib</pattern>
+                        <shadedPattern>org.twindev.minecraftlib.lib</shadedPattern>
+                    </relocation>
+                </relocations>
+            </configuration>
+        </plugin>
     </plugins>
     <resources>
       <resource>
@@ -50,21 +73,43 @@
   </build>
 
   <repositories>
+      <!-- papermc repo -->
       <repository>
-          <id>spigotmc-repo</id>
-          <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
       </repository>
       <repository>
           <id>sonatype</id>
           <url>https://oss.sonatype.org/content/groups/public/</url>
       </repository>
+      <repository>
+          <id>jitpack.io</id>
+          <url>https://jitpack.io</url>
+      </repository>
   </repositories>
 
   <dependencies>
       <dependency>
-          <groupId>org.spigotmc</groupId>
-          <artifactId>spigot-api</artifactId>
-          <version>1.21-R0.1-SNAPSHOT</version>
+          <groupId>io.papermc.paper</groupId>
+          <artifactId>paper-api</artifactId>
+          <version>1.20.1-R0.1-SNAPSHOT</version>
+          <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+          <version>24.0.0</version>
+          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>com.github.kangarko</groupId>
+          <artifactId>Foundation</artifactId>
+          <version>6.9.1</version>
+      </dependency>
+      <dependency>
+          <groupId>com.github.MilkBowl</groupId>
+          <artifactId>VaultAPI</artifactId>
+          <version>1.7.1</version>
           <scope>provided</scope>
       </dependency>
   </dependencies>

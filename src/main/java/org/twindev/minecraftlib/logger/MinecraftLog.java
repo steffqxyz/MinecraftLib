@@ -1,6 +1,13 @@
-package org.twindev.minecraftlib.utils;
+package org.twindev.minecraftlib.logger;
 
-public class AstraLog {
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
+import org.twindev.minecraftlib.MinecraftLib;
+import org.twindev.minecraftlib.utils.MiniColor;
+import org.twindev.minecraftlib.utils.configuration.YamlConfig;
+
+public class MinecraftLog {
 
     private static final String PREFIX;
     private static final String DEBUG_PREFIX;
@@ -18,12 +25,12 @@ public class AstraLog {
     }
 
     public static void onLoad() {
-        final YamlConfig config = Astra.getUtility().getConfigYml();
+        final YamlConfig config = MinecraftLib.getUtility().getConfigYml();
         allowFormatting = config.options().getBoolean("logging.formatting", true);
         debugMode = config.options().getBoolean("logging.debug-mode", false);
     }
 
-    private static void send(@NotNull final AstraLogLevel level, final boolean debug, @NotNull final String... input) {
+    private static void send(@NotNull final MinecraftLogLevels level, final boolean debug, @NotNull final String... input) {
         String prefix = PREFIX;
 
         if (debug) {
@@ -46,36 +53,36 @@ public class AstraLog {
         }
     }
 
-    public static void log(@NotNull final AstraLogLevel level, @NotNull final String... input) {
+    public static void log(@NotNull final MinecraftLogLevels level, @NotNull final String... input) {
         send(level, false, input);
     }
 
     public static void log(@NotNull final String... input) {
-        send(AstraLogLevel.INFO, false, input);
+        send(MinecraftLogLevels.INFO, false, input);
     }
 
-    public static void debug(@NotNull final AstraLogLevel level, @NotNull final String... input) {
+    public static void debug(@NotNull final MinecraftLogLevels level, @NotNull final String... input) {
         send(level, true, input);
     }
 
     public static void debug(@NotNull final String... input) {
-        send(AstraLogLevel.INFO, true, input);
+        send(MinecraftLogLevels.INFO, true, input);
     }
 
-    public static void divider(@NotNull final AstraLogLevel level, final boolean debug) {
+    public static void divider(@NotNull final MinecraftLogLevels level, final boolean debug) {
         send(level, debug, DIVIDER);
     }
 
-    public static void divider(@NotNull final AstraLogLevel level) {
+    public static void divider(@NotNull final MinecraftLogLevels level) {
         send(level, false, DIVIDER);
     }
 
     public static void divider(final boolean debug) {
-        send(AstraLogLevel.INFO, debug, DIVIDER);
+        send(MinecraftLogLevels.INFO, debug, DIVIDER);
     }
 
     public static void divider() {
-        send(AstraLogLevel.INFO, false, DIVIDER);
+        send(MinecraftLogLevels.INFO, false, DIVIDER);
     }
 
 }
