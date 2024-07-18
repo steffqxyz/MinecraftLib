@@ -7,13 +7,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.twindev.minecraftlib.logger.MinecraftLog;
 import org.twindev.minecraftlib.logger.MinecraftLogLevels;
+import org.twindev.minecraftlib.utils.configuration.YamlConfig;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public final class MinecraftLib {
     private static MinecraftUtility utility;
     private static Economy econ = null;
+    private static Map<String, YamlConfig> configs;
 
     public static void onLoad(@NotNull final MinecraftUtility plugin) {
         MinecraftLib.utility = plugin;
+        configs = new HashMap<>();
 
         if (!setupEconomy()) {
             MinecraftLog.log(MinecraftLogLevels.ERROR, "Vault not found, disabling plugin");
@@ -49,5 +55,9 @@ public final class MinecraftLib {
         }
         econ = rsp.getProvider();
         return econ != null;
+    }
+
+    public static Map<String, YamlConfig> getMenuConfigs() {
+        return configs;
     }
 }
