@@ -28,10 +28,10 @@ public final class MinecraftLib {
         MinecraftLib.utility = plugin;
         menuManager = new MenuManager();
 
-        namespacedKeyLeft = new NamespacedKey(getPlugin(), "left-click-action");
-        namespacedKeyRight = new NamespacedKey(getPlugin(), "right-click-action");
-        namespacedKeyPaginated = new NamespacedKey(getPlugin(), "paginated");
-        namespacedKeyStore = new NamespacedKey(getPlugin(), "store");
+        namespacedKeyLeft = new NamespacedKey((JavaPlugin) plugin, "left-click-action");
+        namespacedKeyRight = new NamespacedKey((JavaPlugin) plugin, "right-click-action");
+        namespacedKeyPaginated = new NamespacedKey((JavaPlugin) plugin, "paginated");
+        namespacedKeyStore = new NamespacedKey((JavaPlugin) plugin, "store");
 
         if (!setupEconomy()) {
             MinecraftLog.log(MinecraftLogLevels.ERROR, "Vault not found, disabling plugin");
@@ -47,6 +47,7 @@ public final class MinecraftLib {
     public static JavaPlugin getPlugin() {
         return (JavaPlugin) utility;
     }
+
 
 //    public static MinecraftAPI getLibrary() {
 //        return (MinecraftAP) getPlugin();
