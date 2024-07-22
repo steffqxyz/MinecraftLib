@@ -15,7 +15,4 @@ public abstract class Action {
     public String id() { return id; }
 
     public abstract boolean run(@NotNull final Player player, @NotNull final String commandLine);
-
-
-    public abstract boolean run(@NotNull Player player, @NotNull String commandLine);
 }
