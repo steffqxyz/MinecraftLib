@@ -8,7 +8,7 @@ import org.twindev.minecraftlib.menus.builder.actions.Action;
 public class ConsoleCommandAction extends Action {
 
     public ConsoleCommandAction() {
-        super("player");
+        super("console");
     }
 
     @Override
